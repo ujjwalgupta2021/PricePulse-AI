@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PricePulse AI | Zero-Server Competitive Intelligence Dashboard</title>
+  <meta name="description" content="Lightweight, privacy-first competitive intelligence dashboard for e-commerce sellers, dropshippers, and agencies. Live competitor price auditing and counter-strategy generation powered by AI.">
+  <meta name="theme-color" content="#0a0c14">
+
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css?v=2.3">
+</head>
+<body class="dark-theme">
+  <!-- Background Glow & Grid Canvas -->
+  <div class="bg-fx" aria-hidden="true">
+    <div class="glow-orb orb-primary"></div>
+    <div class="glow-orb orb-secondary"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="navbar" role="banner">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">PricePulse <span class="badge-ai">AI</span></span>
+          <span class="brand-sub">Competitive Radar</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Zero-Server Privacy Badge -->
+        <div class="privacy-pill" title="All processing occurs client-side in your browser. No server saves your data or keys.">
+          <span class="pulse-dot"></span>
+          <span class="privacy-label">100% Client-Side • Zero-Server</span>
+        </div>
+
+        <!-- Theme Mode Toggle Button -->
+        <button id="btnThemeToggle" class="btn btn-secondary btn-sm" aria-label="Toggle Light and Dark Theme" title="Toggle Theme">
+          <span id="themeToggleIcon" aria-hidden="true">☀️</span>
+          <span id="themeToggleText">Light</span>
+        </button>
+
+        <!-- Demo Mode Quick Switcher -->
+        <button id="btnDemoScenarios" class="btn btn-secondary btn-sm" aria-label="Open Demo Scenarios">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 3l14 9-14 9V3z"/>
+          </svg>
+          <span>Demo Presets</span>
+        </button>
+
+        <!-- API Key Settings Button -->
+        <button id="btnOpenSettings" class="btn btn-primary btn-sm" aria-label="Configure Gemini API Key">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span id="apiKeyBtnLabel">API Key</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Wrapper -->
+  <main class="main-content">
+    <div class="content-container">
+      
+      <!-- Top Hero / Banner Section -->
+      <section class="hero-section">
+        <div class="retail-badge">🏪 Built for Offline Retail & Local Shopkeepers</div>
+        <h1 class="hero-title">Beat Online Discounts & Keep Your Walk-in Customers</h1>
+        <p class="hero-desc">
+          Don't lose loyal customers to Amazon, Flipkart, or online discount sales. Check what competitors are selling it for in seconds, and get instant <strong>counter-talk scripts</strong>, <strong>WhatsApp customer broadcasts</strong>, and <strong>shop counter signs</strong>.
+        </p>
+      </section>
+
+      <!-- Shopkeeper Quick Guide Banner -->
+      <div class="shop-guide-card">
+        <div class="guide-header">
+          <span class="guide-icon">💡</span>
+          <strong>How Local Shop Owners Use This in 3 Easy Steps:</strong>
+        </div>
+        <div class="guide-steps-grid">
+          <div class="guide-step-item">
+            <span class="guide-step-number">1</span>
+            <p><strong>Paste Online Link:</strong> Copy any product link from Amazon, Flipkart, or a rival store.</p>
+          </div>
+          <div class="guide-step-item">
+            <span class="guide-step-number">2</span>
+            <p><strong>Enter Your Shop Price:</strong> Tell us what you currently charge in your store.</p>
+          </div>
+          <div class="guide-step-item">
+            <span class="guide-step-number">3</span>
+            <p><strong>Get Your Action Plan:</strong> Get exact words your sales staff can say to win the sale on the spot!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Deck / Target Configurator -->
+      <section class="card input-deck" id="targetDeck">
+        <div class="deck-header">
+          <div class="deck-title-group">
+            <span class="step-num">01</span>
+            <div>
+              <h2 class="deck-title">Compare Prices with Competitor</h2>
+              <p class="deck-subtitle">Paste any competitor or online link to check their latest price</p>
+            </div>
+          </div>
+          
+          <div class="preset-pills">
+            <span class="preset-label">Sample Stores:</span>
+            <button class="pill-btn" data-preset="fashion">👕 Clothing Boutique</button>
+            <button class="pill-btn" data-preset="electronics">📱 Mobile & Electronics</button>
+            <button class="pill-btn" data-preset="grocery">🛒 Supermarket / Kirana</button>
+          </div>
+        </div>
+
+        <form id="auditForm" class="audit-form" autocomplete="off">
+          <div class="form-grid">
+            <!-- Competitor URL -->
+            <div class="form-group col-span-2">
+              <label for="targetUrl" class="form-label">
+                <span>1. Competitor or Online Product Link</span>
+                <span class="badge-hint">Amazon, Flipkart, brand store, or competitor URL</span>
+              </label>
+              <div class="input-with-icon">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <input 
+                  type="url" 
+                  id="targetUrl" 
+                  name="targetUrl" 
+                  class="form-control" 
+                  placeholder="https://www.amazon.in/dp/... or https://competitor.com/jacket" 
+                  required
+                >
+                <button type="button" id="btnPasteUrl" class="btn-input-action" title="Paste from clipboard">Paste Link</button>
+              </div>
+            </div>
+
+            <!-- Baseline Reference -->
+            <div class="form-group col-span-2">
+              <div class="label-with-action">
+                <label for="baselineText" class="form-label">
+                  <span>2. Your Shop's Selling Price & Details</span>
+                  <span class="badge-hint">What do you sell it for in your store?</span>
+                </label>
+                <button type="button" id="btnAutoSuggestBaseline" class="text-link-btn">Auto-Fill Sample Price</button>
+              </div>
+              <textarea 
+                id="baselineText" 
+                name="baselineText" 
+                class="form-control text-area" 
+                rows="3" 
+                placeholder="E.g., In my shop, I sell this for ₹2,499. Customers get immediate size trials, 1-year in-store replacement warranty, and instant take-home today."
+                required
+              ></textarea>
+            </div>
+
+            <!-- Store Category -->
+            <div class="form-group">
+              <label for="yourBrandType" class="form-label">3. What Kind of Shop Do You Run?</label>
+              <select id="yourBrandType" class="form-control">
+                <option value="clothing">👕 Clothing, Garments & Fashion Boutique</option>
+                <option value="electronics">📱 Mobile Phones & Electronics Store</option>
+                <option value="footwear">👟 Shoes & Footwear Store</option>
+                <option value="grocery">🛒 Supermarket, Kirana & Grocery</option>
+                <option value="beauty">💄 Cosmetics, Salon & Beauty Supply</option>
+                <option value="general">🏪 General Retail, Hardware & Gifts</option>
+              </select>
+            </div>
+
+            <!-- Shop Goal -->
+            <div class="form-group">
+              <label for="analysisFocus" class="form-label">4. What is Your Main Goal?</label>
+              <select id="analysisFocus" class="form-control">
+                <option value="walkin_objection">🗣️ Win Walk-ins (When customer says: "It's cheaper online!")</option>
+                <option value="protect_margin">🛡️ Protect Profit Margin (Highlight in-store perks without discounting)</option>
+                <option value="whatsapp_deal">💬 Retain Regulars (Send WhatsApp VIP counter-deal)</option>
+                <option value="flash_attack">⚡ Stock Clearance (Run an instant matching weekend flash bundle)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Action Row -->
+          <div class="form-action-row">
+            <div class="proxy-select-wrap">
+              <label for="scrapingEngine" class="proxy-label">Page Reader:</label>
+              <select id="scrapingEngine" class="select-ghost">
+                <option value="jina">Auto AI Reader (Fastest)</option>
+                <option value="allorigins">Backup Web Reader</option>
+                <option value="direct">Direct Page Fetch</option>
+              </select>
+            </div>
+
+            <button type="submit" id="btnRunAudit" class="btn btn-action">
+              <span class="btn-spinner hidden" id="auditSpinner"></span>
+              <svg class="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <span id="btnRunAuditText">🔍 Check Price & Beat Competitor</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Progress Tracker Bar (Hidden by default) -->
+        <div id="scanProgressContainer" class="scan-progress-container hidden">
+          <div class="progress-bar-track">
+            <div id="scanProgressBar" class="progress-bar-fill" style="width: 15%;"></div>
+          </div>
+          <div class="progress-status-row">
+            <span id="scanStatusMsg" class="status-msg">Initiating scraping bridge...</span>
+            <span id="scanStepBadge" class="badge-step">Step 1/3</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results Display Section (Hidden initially until audit runs or demo clicked) -->
+      <section id="resultsSection" class="results-section hidden">
+        
+        <!-- Results Header / Meta Bar -->
+        <div class="results-meta-bar">
+          <div class="meta-left">
+            <div class="audit-target-badge">
+              <span class="target-host" id="resTargetDomain">competitor.com</span>
+              <span class="scan-timestamp" id="resTimestamp">Just now</span>
+            </div>
+            <h2 class="target-product-title" id="resProductTitle">Product Title Here</h2>
+          </div>
+          <div class="meta-right">
+            <button id="btnExportMarkdown" class="btn btn-secondary btn-sm" title="Export audit report as Markdown">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Export Report</span>
+            </button>
+            <button id="btnSaveToWatchlist" class="btn btn-secondary btn-sm" title="Save this target to your watchlist">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <span id="btnSaveWatchlistLabel">Save to Watchlist</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3-Column Intelligence Grid -->
+        <div class="intelligence-grid">
+          
+          <!-- Module 1: The Pulse Meter (Threat Assessment) -->
+          <article class="card module-card pulse-meter-module" id="modulePulseMeter">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <span class="module-icon" aria-hidden="true">🎯</span>
+                <div>
+                  <h3 class="module-title">Risk to Your Shop (Threat Meter)</h3>
+                  <span class="module-subtitle">Will this competitor move pull away your walk-in customers?</span>
+                </div>
+              </div>
+              <div class="threat-badges-group">
+                <span id="threatScoreHeaderPill" class="score-header-pill">Threat Index: 84/100</span>
+                <span id="threatLevelBadge" class="threat-pill threat-red">Critical Threat</span>
+              </div>
+            </div>
+
+            <div class="meter-visualization-wrap">
+              <!-- Animated SVG Speedometer -->
+              <div class="gauge-container">
+                <svg class="gauge-svg" viewBox="0 0 260 160">
+                  <!-- Background Track Arc -->
+                  <path class="gauge-track" d="M 35 140 A 95 95 0 0 1 225 140" fill="none" stroke-width="16" stroke-linecap="round"></path>
+                  <!-- Gradient Colored Fill Arc -->
+                  <path id="gaugeFillArc" class="gauge-fill" d="M 35 140 A 95 95 0 0 1 225 140" fill="none" stroke-width="16" stroke-linecap="round" stroke-dasharray="298" stroke-dashoffset="298"></path>
+                  <!-- Target Needle Indicator -->
+                  <circle cx="130" cy="140" r="7" class="gauge-pivot"></circle>
+                  <line id="gaugeNeedle" x1="130" y1="140" x2="65" y2="140" class="gauge-needle" stroke-linecap="round"></line>
+                </svg>
+
+                <div class="gauge-score-overlay">
+                  <div class="score-main-row">
+                    <span id="gaugeScoreNumber" class="score-number">0</span>
+                    <span class="score-max">/100</span>
+                  </div>
+                  <span class="score-label" id="gaugeScoreLabel">THREAT INDEX</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Threat Verdict Box -->
+            <div class="threat-verdict-box" id="threatVerdictBox">
+              <div class="verdict-header">Shopkeeper's Bottom Line</div>
+              <p id="threatRationaleText" class="verdict-text">
+                Analyzing competitor changes...
+              </p>
+            </div>
+
+            <!-- Strategic Shifts Bullet Points -->
+            <div class="strategic-shifts-wrap">
+              <div class="shifts-title">What Changed on Their Page</div>
+              <ul id="strategicShiftsList" class="shifts-list">
+                <!-- Dynamically populated -->
+              </ul>
+            </div>
+          </article>
+
+          <!-- Module 2: The Diff Matrix (Visual Transition) -->
+          <article class="card module-card diff-matrix-module" id="moduleDiffMatrix">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <span class="module-icon" aria-hidden="true">📊</span>
+                <div>
+                  <h3 class="module-title">Your Shop vs. Competitor</h3>
+                  <span class="module-subtitle">Comparing Price, Immediate Carry-Out & Customer Trial</span>
+                </div>
+              </div>
+              <span class="matrix-status-pill">Live Deal Diff</span>
+            </div>
+
+            <!-- Diff Metric Cards Container -->
+            <div class="matrix-grid" id="matrixGrid">
+              <!-- Dynamically populated: Price, Shipping, Discounts, Urgency -->
+            </div>
+
+            <!-- Positioning Evolution Card -->
+            <div class="positioning-box">
+              <div class="positioning-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                <span>Market Reality & Shop Margin Advice</span>
+              </div>
+              <p id="positioningText" class="positioning-desc">
+                Extracting competitor pricing intent...
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <!-- Module 3: In-Store Action Plan -->
+        <article class="card module-card counter-attack-module" id="moduleCounterAttack">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <span class="module-icon" aria-hidden="true">⚡</span>
+              <div>
+                <h3 class="module-title">Your Shop's In-Store Action Plan</h3>
+                <span class="module-subtitle">Verbal staff scripts, WhatsApp broadcasts & counter signs to keep walk-in customers</span>
+              </div>
+            </div>
+            
+            <div class="recommended-strategy-badge">
+              <span class="rec-label">Shop Strategy:</span>
+              <span id="recStrategyTitle" class="rec-name">Value Shielding</span>
+            </div>
+          </div>
+
+          <!-- Script Tabs Navigation -->
+          <div class="counter-tabs-nav" role="tablist">
+            <button class="tab-btn active" data-tab="tabStaffScript" role="tab" aria-selected="true">
+              <span>🗣️ "Customer Objection" Script</span>
+            </button>
+            <button class="tab-btn" data-tab="tabWhatsAppMsg" role="tab" aria-selected="false">
+              <span>💬 WhatsApp Customer Broadcast</span>
+            </button>
+            <button class="tab-btn" data-tab="tabCounterSign" role="tab" aria-selected="false">
+              <span>🪧 Shop Counter Signboard</span>
+            </button>
+            <button class="tab-btn" data-tab="tabStoreBundle" role="tab" aria-selected="false">
+              <span>🏷️ In-Store Margin Bundle</span>
+            </button>
+          </div>
+
+          <!-- Script Tab Content Panels -->
+          <div class="counter-tab-content">
+            <!-- Tab 1: Staff Counter-Script -->
+            <div id="tabStaffScript" class="tab-pane active" role="tabpanel">
+              <div class="script-card">
+                <div class="script-card-header">
+                  <span class="script-desc">What to say when a customer says: <em>"Look, I found it cheaper on Amazon / online!"</em></span>
+                  <button class="btn-copy-code" data-copy-target="codeStaffScript">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span>Copy Verbal Script</span>
+                  </button>
+                </div>
+                <div class="code-preview-box">
+                  <pre><code id="codeStaffScript">Generating staff counter script...</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 2: WhatsApp Broadcast -->
+            <div id="tabWhatsAppMsg" class="tab-pane hidden" role="tabpanel">
+              <div class="script-card">
+                <div class="script-card-header">
+                  <span class="script-desc">Ready to copy and send to your regular customer WhatsApp broadcast list or status</span>
+                  <button class="btn-copy-code" data-copy-target="codeWhatsAppMsg">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span>Copy WhatsApp Text</span>
+                  </button>
+                </div>
+                <div class="code-preview-box">
+                  <pre><code id="codeWhatsAppMsg">Generating WhatsApp message...</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 3: Shop Counter Sign -->
+            <div id="tabCounterSign" class="tab-pane hidden" role="tabpanel">
+              <div class="script-card">
+                <div class="script-card-header">
+                  <span class="script-desc">Print on an A4 sheet for your billing counter or display on a window chalkboard</span>
+                  <button class="btn-copy-code" data-copy-target="codeCounterSign">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span>Copy Signboard Text</span>
+                  </button>
+                </div>
+                <div class="code-preview-box">
+                  <pre><code id="codeCounterSign">Drafting counter poster text...</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 4: In-Store Margin Bundle -->
+            <div id="tabStoreBundle" class="tab-pane hidden" role="tabpanel">
+              <div class="script-card">
+                <div class="script-card-header">
+                  <span class="script-desc">Protect your profit margins by bundling a high-value accessory instead of lowering price</span>
+                  <button class="btn-copy-code" data-copy-target="codeStoreBundle">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span>Copy Bundle Plan</span>
+                  </button>
+                </div>
+                <div class="promo-coupon-showcase">
+                  <div class="coupon-ticket">
+                    <div class="coupon-code-badge" id="promoCouponCode">BEATONLINE</div>
+                    <div class="coupon-details">
+                      <h4 id="promoTitle">In-Store Value Bundle</h4>
+                      <p id="promoDescription">Special counter-offer bundle will appear here.</p>
+                    </div>
+                  </div>
+                  <div class="code-preview-box mt-3">
+                    <pre><code id="codeStoreBundle">Structuring in-store deal playbook...</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </article>
+
+      </section>
+
+      <!-- Competitor Watchlist & History Drawer -->
+      <section class="card watchlist-section">
+        <div class="watchlist-header">
+          <div class="watchlist-title-group">
+            <span class="module-icon">📌</span>
+            <div>
+              <h3 class="watchlist-title">Your Saved Products & Price History</h3>
+              <p class="watchlist-subtitle">Saved privately on your device — check anytime to see if competitors dropped their rates</p>
+            </div>
+          </div>
+          <button id="btnClearWatchlist" class="btn btn-ghost btn-sm">Clear History</button>
+        </div>
+
+        <div id="watchlistContainer" class="watchlist-grid">
+          <!-- Populated from localStorage / IndexedDB -->
+          <div class="empty-watchlist-state">
+            <p>No saved products yet. Enter a link above and click "Save to Watchlist" to keep an eye on competitor prices!</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Modal: API Key Configuration -->
+  <div id="settingsModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <h3 id="modalTitle" class="modal-title">Gemini API Key Vault</h3>
+        </div>
+        <button id="btnCloseSettingsModal" class="btn-close" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="modal-intro">
+          PricePulse AI connects directly from your browser to Google's Gemini Flash model. Your key is stored <strong>only in your browser's local memory</strong> and is never sent to any third-party server.
+        </p>
+
+        <div class="modal-grid">
+          <!-- Column 1: API Key Input -->
+          <div class="modal-col">
+            <div class="form-group">
+              <label for="geminiApiKeyInput" class="form-label">Google Gemini API Key</label>
+              <div class="input-with-icon">
+                <input 
+                  type="password" 
+                  id="geminiApiKeyInput" 
+                  class="form-control" 
+                  placeholder="AIzaSy..." 
+                  autocomplete="off"
+                >
+                <button type="button" id="btnToggleKeyVisibility" class="btn-input-action" title="Toggle visibility">Show</button>
+              </div>
+              <div class="key-hint-row">
+                <span>Don't have a key? <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="link-accent">Get free Gemini API key &rarr;</a></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Automatic Model Negotiation Display -->
+          <div class="modal-col">
+            <div class="auto-model-info-box">
+              <div class="auto-model-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                </svg>
+                <span>Intelligent Model Auto-Selection</span>
+              </div>
+              <p class="auto-model-desc">
+                Zero configuration required: PricePulse automatically detects and pairs with the fastest active Gemini model available on your API key.
+              </p>
+              <div id="detectedModelBadge" class="detected-model-pill">
+                <span class="detected-dot"></span>
+                <span id="detectedModelName">Auto-Detect on Test / Save</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connection Test Status (Horizontally stretched across the full width) -->
+        <div id="keyValidationStatus" class="validation-status-box hidden"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="btnTestKey" class="btn btn-secondary">Test Connection</button>
+        <button type="button" id="btnSaveKey" class="btn btn-action">Save & Lock Key</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/storage.js?v=2.3"></script>
+  <script src="js/scraper.js?v=2.3"></script>
+  <script src="js/gemini.js?v=2.3"></script>
+  <script src="js/pulse-meter.js?v=2.3"></script>
+  <script src="js/diff-matrix.js?v=2.3"></script>
+  <script src="js/counter-attack.js?v=2.3"></script>
+  <script src="js/app.js?v=2.3"></script>
+</body>
+</html>
