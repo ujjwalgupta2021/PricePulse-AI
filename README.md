@@ -41,7 +41,7 @@ PricePulse immediately analyzes the competitor listing and equips the shopkeeper
 
 ## Demo
 
-- **Live Web App:** [https://github.com/](https://github.com/) *(Deployable to GitHub Pages with 0 server configuration)*
+- **Live Web App:** [https://ujjwalgupta2021.github.io/PricePulse-AI/](https://ujjwalgupta2021.github.io/PricePulse-AI/) *(Deployable to GitHub Pages with 0 server configuration)*
 - **Built-in Interactive Demos (Zero Setup Required):**  
   Clicking any demo button instantly simulates real retail defense scenarios without requiring an API key:
   - 👕 **Clothing Boutique:** Arctic Expedition Parka vs. discount e-commerce apparel seller.
@@ -53,7 +53,7 @@ PricePulse immediately analyzes the competitor listing and equips the shopkeeper
 
 ## Code
 
-- **GitHub Repository:** [https://github.com/](https://github.com/)
+- **GitHub Repository:** [https://github.com/ujjwalgupta2021/PricePulse-AI](https://github.com/ujjwalgupta2021/PricePulse-AI)
 - **Core Architecture:**
   - `index.html` — Clean semantic structure, SVG gauge meters, and accessibility-first modal views.
   - `styles.css` — Modern glassmorphism system with CSS custom properties, responsive grids, and dark/light modes.
